@@ -1,9 +1,13 @@
 package com.fmsproject.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,9 +23,12 @@ public class Course {
 	private String courseDesc;
 	
 	private int noOfDays;
-
-	public Course() {
-		super();
+	
+	@OneToMany(mappedBy = "course")
+	private Set<Program> programs = new HashSet<>();
+	
+	Course(){
+		
 	}
 
 	public int getCourseId() {
@@ -55,5 +62,14 @@ public class Course {
 	public void setNoOfDays(int noOfDays) {
 		this.noOfDays = noOfDays;
 	}
+
+	public Set<Program> getPrograms() {
+		return programs;
+	}
+
+	public void setPrograms(Set<Program> programs) {
+		this.programs = programs;
+	}
+	
 	
 }
