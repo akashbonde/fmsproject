@@ -8,7 +8,7 @@ public class FmsprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FmsprojectApplication.class, args);
-		System.out.println("The application is running");
+		System.out.println("The application is running on 8086");
 	}
 
 }
