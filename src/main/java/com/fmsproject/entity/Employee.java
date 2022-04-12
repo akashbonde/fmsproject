@@ -1,9 +1,13 @@
 package com.fmsproject.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +25,9 @@ public class Employee {
 	private String role;
 	
 	private String username;
-
+	
+	@ManyToMany(mappedBy = "employees")
+	private Set<Program> programs = new HashSet<>();
 	
 	public Employee() {
 		super();

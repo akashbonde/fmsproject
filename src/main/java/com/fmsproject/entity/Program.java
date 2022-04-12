@@ -1,11 +1,16 @@
 package com.fmsproject.entity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +31,18 @@ public class Program {
 	@ManyToOne
 	@JoinColumn(name="courseId")
 	private Course course;
+	
+	@OneToMany(mappedBy = "program")
+	private Set<Feedback> feedbacks = new HashSet<>();
+	
+	@ManyToMany
+	@JoinTable(name="programParticipant", joinColumns = {@JoinColumn(name="programId")}, inverseJoinColumns = {
+			@JoinColumn(name="employeeId")})
+	private Set<Employee> employees = new HashSet<>();
+
+	Program(){
+		
+	}
 
 	public int getProgramId() {
 		return programId;
@@ -65,6 +82,14 @@ public class Program {
 
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
 	}
 	
 }
