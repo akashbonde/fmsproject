@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -46,10 +47,11 @@ public class Program implements Serializable{
 	@JoinColumn(name="courseId")
 	private Course course;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "program")
 	private Set<Feedback> feedbacks = new HashSet<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name="programParticipant", joinColumns = {@JoinColumn(name="programId")}, inverseJoinColumns = {
 			@JoinColumn(name="employeeId")})
 	private Set<Employee> employees = new HashSet<>();
