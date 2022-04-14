@@ -17,6 +17,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table
 public class Trainer implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int trainerId;
@@ -25,6 +30,7 @@ public class Trainer implements Serializable{
 	
 	String skill;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "trainer")
 	private Set<Program> programs = new HashSet<>();
 	

@@ -26,7 +26,7 @@ public class Employee implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int employeeId;
 	
-	private int empName;
+	private String empName;
 	
 	private String password;
 	
@@ -49,11 +49,11 @@ public class Employee implements Serializable {
 		this.employeeId = employeeId;
 	}
 
-	public int getEmpName() {
+	public String getEmpName() {
 		return empName;
 	}
 
-	public void setEmpName(int empName) {
+	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
 

@@ -32,6 +32,7 @@ public class Course implements Serializable{
 	
 	private int noOfDays;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "course")
 	private Set<Program> programs = new HashSet<>();
 	
