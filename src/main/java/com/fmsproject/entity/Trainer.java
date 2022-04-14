@@ -1,18 +1,24 @@
 package com.fmsproject.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table
-public class Trainer {
+public class Trainer implements Serializable{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int trainerId;
 	
 	String trainerName;

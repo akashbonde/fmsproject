@@ -83,12 +83,12 @@ public class TrainerController {
 		return new ResponseEntity<List<Trainer>>(trainers, HttpStatus.OK);
 	}
 
-	@GetMapping("/trainer")
+	@GetMapping("/trainers")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 
 		List<Trainer> trainers = trainerManagementService.viewAllTrainers();
 		if (trainers.isEmpty()) {
-			return new ResponseEntity("Sorry! Trainers not available!", HttpStatus.NOT_FOUND);
+			return new ResponseEntity("Sorry! No trainers are available!", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<List<Trainer>>(trainers, HttpStatus.OK);
 	}
