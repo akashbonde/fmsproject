@@ -11,6 +11,7 @@ jar {
 
 	manifest {
 		attributes (
+			'Implementation-Title':'feedbackManagementService',
 			'Main-Class':'com.fmsproject.FmsprojectApplication'
 		)
 	}
