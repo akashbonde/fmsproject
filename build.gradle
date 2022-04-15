@@ -5,6 +5,10 @@ plugins {
 }
 
 jar {
+	from {
+            configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+
 	manifest {
 		attributes (
 			'Main-Class':'com.fmsproject.FmsprojectApplication'
@@ -17,6 +21,10 @@ sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
+}
+
+configurations {
+	extraLibs
 }
 
 dependencies {
@@ -32,6 +40,8 @@ dependencies {
 
 	
 	//implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
+	
+	configurations.compile.extendsFrom(configurations.extraLibs)
 	
 }
 
