@@ -1,0 +1,9 @@
+
+{
+  "name": "feedback-management-system",
+  "buildpacks": [
+    {
+      "url": "heroku/gradle"
+    }
+  ]
+}
