@@ -28,7 +28,7 @@ configurations {
 }
 
 dependencies {
-    extraLibs group: 'net.java.dev.jna', name: 'jna-platform', version: '4.2.2'
+    extraLibs group: ‘commons-net’, name: ‘commons-net’, version: ‘3.6’
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
