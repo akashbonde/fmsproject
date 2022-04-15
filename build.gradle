@@ -20,7 +20,11 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		
-	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.3'
+
+	
+	//implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
 	
 }
 
