@@ -2,14 +2,17 @@ package com.fmsproject.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fmsproject.dao.ProgramRepository;
+import com.fmsproject.entity.Course;
 import com.fmsproject.entity.Employee;
 import com.fmsproject.entity.Program;
+import com.fmsproject.exception.NullValueFoundException;
 
 @Service("programManagementService")
 public class ProgramManagementServiceImpl implements ProgramManagementService{
@@ -27,12 +30,17 @@ public class ProgramManagementServiceImpl implements ProgramManagementService{
 	}
 	
 	@Override
-	public List<Program> removeProgram(Integer programId) {
+	public Program removeProgram(Integer programId) {
 		// TODO Auto-generated method stub
 		
-		programRepository.deleteById(programId);
+		try {
+			programRepository.deleteById(programId);
+		}
+		catch(Exception e) {
+			throw new NullValueFoundException("No program found with the given Id");
+		}
 		
-		return programRepository.findAll();
+		return null;
 	}
 	
 	@Override
@@ -48,7 +56,7 @@ public class ProgramManagementServiceImpl implements ProgramManagementService{
 		List<Program> allPrograms = programRepository.findAll();
 		
 		if(allPrograms.isEmpty()) {
-			System.out.print("No program found");
+			throw new NullValueFoundException("No programs found in the database");
 		}
 		
 		return allPrograms;
@@ -58,14 +66,25 @@ public class ProgramManagementServiceImpl implements ProgramManagementService{
 	public List<Program> viewAllProgramsByDate(LocalDate startdate) {
 		// TODO Auto-generated method stub
 		List<Program> resultList = programRepository.getProgramsByDate(startdate);
+		
+		if(resultList.isEmpty()) {
+			throw new NullValueFoundException("No program with given start date present in the database!");
+			
+		}
+		
 		return resultList;
 	}
 	
 	@Override
 	public List<Program> viewAllProgramsByFaculty(int trainerId) {
 		// TODO Auto-generated method stub
-		List<Program> resultList = programRepository.getProgramsById(trainerId);
-		return resultList;
+		List<Program> programs = programRepository.getProgramsById(trainerId);
+
+		if(programs.isEmpty()) {
+			throw new NullValueFoundException("No Program for the given trainer present in the database!");
+		}
+		
+		return programs;
 	}
 	
 	@Override
@@ -77,6 +96,13 @@ public class ProgramManagementServiceImpl implements ProgramManagementService{
 	@Override
 	public Program viewProgram(int programId) {
 		// TODO Auto-generated method stub
-		return programRepository.findById(programId).get();
+		
+		Optional<Program> program = programRepository.findById(programId);
+
+		if(!program.isPresent()) {
+			throw new NullValueFoundException("No Program with given Id present in the database!");
+		}
+		
+		return program.get();
 	}
 }

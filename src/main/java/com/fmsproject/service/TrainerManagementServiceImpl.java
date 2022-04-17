@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fmsproject.dao.TrainerRepository;
 import com.fmsproject.entity.Trainer;
+import com.fmsproject.exception.NullValueFoundException;
 
 @Service("trainerManagementService")
 public class TrainerManagementServiceImpl implements TrainerManagementService{
@@ -27,7 +28,12 @@ public class TrainerManagementServiceImpl implements TrainerManagementService{
 	public Trainer removeTrainer(int trainerId) {
 		// TODO Auto-generated method stub
 		
-		trainerRepository.deleteById(trainerId);
+		try {
+			trainerRepository.deleteById(trainerId);
+		}
+		catch(Exception e) {
+			throw new NullValueFoundException("No trainer found with the given ID");
+		}
 
 		return null;
 	}
@@ -47,7 +53,7 @@ public class TrainerManagementServiceImpl implements TrainerManagementService{
 		List<Trainer> trainers = trainerRepository.findAll();
 		
 		if (trainers.isEmpty()) {
-			System.out.println("No trainers Found for this Skillset!");
+			throw new NullValueFoundException("No trainers found in the database!!");
 		}
 		
 		return trainers;
@@ -60,7 +66,7 @@ public class TrainerManagementServiceImpl implements TrainerManagementService{
 		List<Trainer> trainers = trainerRepository.getAllTrainersBySkill(skill);
 		
 		if (trainers.isEmpty()) {
-			System.out.println("No trainers Found for this Skillset!");
+			throw new NullValueFoundException("No trainers found for this Skillset!");
 		}
 		
 		return trainers;
@@ -72,7 +78,7 @@ public class TrainerManagementServiceImpl implements TrainerManagementService{
 		Optional<Trainer> trainer = trainerRepository.findById(trainerId);
 		
 		if (trainer.isEmpty()) {
-			System.out.println("No trainer Found for this Id!");
+			throw new NullValueFoundException("No trainer found for this Id!");
 		}
 		
 		return trainer.get();

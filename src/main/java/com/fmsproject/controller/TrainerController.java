@@ -29,56 +29,38 @@ public class TrainerController {
 	@PostMapping("/trainer")
 	public ResponseEntity<Trainer> insertTrainer(@Valid @RequestBody Trainer trainer) {
 		
-		Trainer trainer1 = trainerManagementService.addTrainer(trainer);
-
-		if (trainer1 == null) {
-			return new ResponseEntity("No trainer Available", HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Trainer>(trainer1, HttpStatus.OK);
+		Trainer trainerResponse = trainerManagementService.addTrainer(trainer);
+		return new ResponseEntity<Trainer>(trainerResponse, HttpStatus.OK);
 	}
 
 	
 	@PutMapping("/trainer")
 	public ResponseEntity<Trainer> updateTrainer(@Valid @RequestBody Trainer trainer) {
 		
-		Trainer trainer1 = trainerManagementService.updateTrainer(trainer);
+		Trainer trainerResponse = trainerManagementService.updateTrainer(trainer);
 
-		if (trainer1 == null) {
-			return new ResponseEntity("No trainer Available", HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Trainer>(trainer1, HttpStatus.OK);
+		return new ResponseEntity<Trainer>(trainerResponse, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/trainer/{trainerId}")
 	public ResponseEntity<Trainer> deleteTrainer(@Valid @PathVariable("trainerId") Integer trainerId) {
 		
-		Trainer trainer1 = trainerManagementService.removeTrainer(trainerId);
-
-		if (trainer1 == null) {
-			return new ResponseEntity("Successfully deleted trainer", HttpStatus.OK);
-		}
-		return new ResponseEntity<Trainer>(trainer1, HttpStatus.NOT_FOUND);
+		trainerManagementService.removeTrainer(trainerId);
+		return new ResponseEntity("The trainer is deleted!! ", HttpStatus.ACCEPTED);
 	}
 
 	@GetMapping("/trainer/{trainerId}")
 	public ResponseEntity<Trainer> findTrainer(@Valid @PathVariable("trainerId") Integer trainerId) {
 
-		Trainer trainer1 = trainerManagementService.viewTrainer(trainerId);
-		if (trainer1 == null) {
-			return new ResponseEntity("Sorry! No trainer found", HttpStatus.NOT_FOUND);
-		}
+		Trainer trainer = trainerManagementService.viewTrainer(trainerId);
 
-		return new ResponseEntity<Trainer>(trainer1, HttpStatus.OK);
+		return new ResponseEntity<Trainer>(trainer, HttpStatus.OK);
 	}
 
 	@GetMapping("trainers/{skill}")
 	public ResponseEntity<List<Trainer>> findTrainerBySkill(@Valid @PathVariable("skill") String skill) {
 
 		List<Trainer> trainers = trainerManagementService.viewAllTrainers(skill);
-
-		if (trainers.isEmpty()) {
-			return new ResponseEntity("Sorry! No trainer found", HttpStatus.NOT_FOUND);
-		}
 
 		return new ResponseEntity<List<Trainer>>(trainers, HttpStatus.OK);
 	}
@@ -87,9 +69,7 @@ public class TrainerController {
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
 
 		List<Trainer> trainers = trainerManagementService.viewAllTrainers();
-		if (trainers.isEmpty()) {
-			return new ResponseEntity("Sorry! No trainers are available!", HttpStatus.NOT_FOUND);
-		}
+		
 		return new ResponseEntity<List<Trainer>>(trainers, HttpStatus.OK);
 	}
 }

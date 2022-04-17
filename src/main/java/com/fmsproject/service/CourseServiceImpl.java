@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fmsproject.dao.CourseRepository;
 import com.fmsproject.entity.Course;
+import com.fmsproject.exception.NullValueFoundException;
 
 @Service("courseService")
 public class CourseServiceImpl implements CourseService{
@@ -28,14 +29,26 @@ public class CourseServiceImpl implements CourseService{
 	public Course updateCourse(Course course) {
 		// TODO Auto-generated method stub
 		
-		courseRepository.save(course);
+		try {
+			courseRepository.save(course);
+		}
+		catch(Exception e) {
+			throw new NullValueFoundException("The course with given ID is not present in the database!");
+		}
+		
 		return course;
 	}
 
 	@Override
 	public Course removeCourse(int courseId) {
 		// TODO Auto-generated method stub
-		courseRepository.deleteById(courseId);
+		try {
+			courseRepository.deleteById(courseId);
+		}
+		catch(Exception e) {
+			throw new NullValueFoundException("No course with given ID present in the database");
+		}
+		
 		return null;
 	}
 
@@ -46,7 +59,7 @@ public class CourseServiceImpl implements CourseService{
 		Optional<Course> course = courseRepository.findById(courseId);
 
 		if (!course.isPresent()) {
-			System.out.println("No course found for the given ID!!");
+			throw new NullValueFoundException("No course with given ID present in the database");
 		}
 
 		return course.get();
@@ -59,7 +72,7 @@ public class CourseServiceImpl implements CourseService{
 		List<Course> allCourses = courseRepository.findAll();
 
 		if (allCourses.isEmpty()) {
-			System.out.println("No courses found!!");
+			throw new NullValueFoundException("No courses present in the database");
 		}
 
 		return allCourses;

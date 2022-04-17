@@ -34,10 +34,6 @@ public class ProgramController {
 	@PutMapping("/programs")
 	public ResponseEntity<Program> updateProgram(@Valid @RequestBody Program program) {
 		Program programResponse = programManagementService.updateProgram(program);
-		
-		if (programResponse.equals(null)) {
-			return new ResponseEntity("Sorry!Program not updated!", HttpStatus.NOT_FOUND);
-		}
 
 		return new ResponseEntity<Program>(programResponse, HttpStatus.OK);
 	}
@@ -45,11 +41,7 @@ public class ProgramController {
 	@PostMapping("/programs")
 	public ResponseEntity<Program> addProgram(@Valid @RequestBody Program program) {
 		Program programResponse = programManagementService.createProgram(program);
-		
-		if (programResponse.equals(null)) {
-			return new ResponseEntity("Sorry!Program not inserted!", HttpStatus.NOT_FOUND);
-		}
-
+	
 		return new ResponseEntity<Program>(program, HttpStatus.OK);
 	}
 
@@ -57,10 +49,6 @@ public class ProgramController {
 	public ResponseEntity<Program> findProgram(@Valid @PathVariable("programId") Integer programId) {
 
 		Program program = programManagementService.viewProgram(programId);
-
-		if (program == null) {
-			return new ResponseEntity("Sorry! No program found", HttpStatus.NOT_FOUND);
-		}
 
 		return new ResponseEntity<Program>(program, HttpStatus.OK);
 	}
@@ -73,13 +61,9 @@ public class ProgramController {
 
 	@DeleteMapping("/programs/{programId}")
 	public ResponseEntity<List<Program>> deleteprogram(@PathVariable("programId") Integer programId) {
-		List<Program> programDelete = programManagementService.removeProgram(programId);
-				
-		if (programDelete.isEmpty() || programDelete == null) {
-			return new ResponseEntity("Sorry! ProgramID not available!", HttpStatus.NOT_FOUND);
-		}
+		programManagementService.removeProgram(programId);
 
-		return new ResponseEntity<List<Program>>(programDelete, HttpStatus.OK);
+		return new ResponseEntity("Program deleted!", HttpStatus.OK);
 	}
 
 	@GetMapping("/programsByTrainer/{trainerId}")
@@ -87,10 +71,6 @@ public class ProgramController {
 
 		List<Program> programs = programManagementService.viewAllProgramsByFaculty(trainerId);
 		
-		if (programs == null) {
-			return new ResponseEntity("Sorry! No program found", HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<List<Program>>(programs, HttpStatus.OK);
 	}
 
@@ -99,10 +79,6 @@ public class ProgramController {
 
 		Set<Employee> empSet = programManagementService.viewParticipantList(courseId);
 		
-		if (empSet == null) {
-			return new ResponseEntity("Sorry! No program found", HttpStatus.NOT_FOUND);
-		}
-
 		return new ResponseEntity<Set<Employee>>(empSet, HttpStatus.OK);
 	}
 

@@ -16,7 +16,7 @@ public interface ProgramManagementService {
 
 	public Program updateProgram(Program p);
 
-	public List<Program> removeProgram(Integer programId);
+	public Program removeProgram(Integer programId);
 
 	public Program viewProgram(int programId);
 
