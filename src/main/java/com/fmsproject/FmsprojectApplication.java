@@ -25,7 +25,7 @@ public class FmsprojectApplication {
 		
 	}
 	
-	//The URL for the swagger is : http:localhost:8086/swagger-ui.html 
+	//The URL for the swagger is : http://localhost:8086/swagger-ui/
 	@Bean
 	public Docket fmsprojectapi() {
 		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.fmsproject")).build();
