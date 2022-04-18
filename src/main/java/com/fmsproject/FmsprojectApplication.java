@@ -29,20 +29,20 @@ public class FmsprojectApplication extends WebMvcConfigurerAdapter{
 	}
 	
 	//The URL for the swagger is : http://localhost:8086/swagger-ui/
-//	@Bean
-//	public Docket fmsprojectapi() {
-//		return new Docket(DocumentationType.SWAGGER_2)
-//				.select()
-//				.apis(RequestHandlerSelectors.basePackage("com.fmsproject"))
-//				.paths(PathSelectors.any())
-//				.build()
-//				.apiInfo(generateApiInfo());
-//	}
-//	
-//	private ApiInfo generateApiInfo()
-//	{
-//		return new ApiInfo(
-//	            "Feedback Management System","Efficiently manage the feedbacks", "Version 1.0",
-//	            "urn:tos", "akashbonde@live.com", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
-//	}
+	@Bean
+	public Docket fmsprojectapi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.fmsproject"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(generateApiInfo());
+	}
+	
+	private ApiInfo generateApiInfo()
+	{
+		return new ApiInfo(
+	            "Feedback Management System","Efficiently manage the feedbacks", "Version 1.0",
+	            "urn:tos", "akashbonde@live.com", "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0");
+	}
 }
