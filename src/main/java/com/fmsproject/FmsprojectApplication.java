@@ -34,7 +34,7 @@ public class FmsprojectApplication extends WebMvcConfigurerAdapter{
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
 				.apis(RequestHandlerSelectors.basePackage("com.fmsproject"))
-				.paths(PathSelectors.any())
+				.paths(PathSelectors.ant("/api/**"))
 				.build()
 				.apiInfo(generateApiInfo());
 	}

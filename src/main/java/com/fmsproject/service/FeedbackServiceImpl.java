@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fmsproject.dao.FeedbackRepository;
 import com.fmsproject.entity.Feedback;
+import com.fmsproject.exception.NullValueFoundException;
 
 @Service("feedbackService")
 public class FeedbackServiceImpl implements FeedbackService{
@@ -29,7 +30,7 @@ public class FeedbackServiceImpl implements FeedbackService{
 		List<Feedback> allFeedbacks = feedbackRepository.findAll();
 
 		if (allFeedbacks.isEmpty()) {
-			System.out.println("No Feedback Found!");
+			throw new NullValueFoundException("No Feedback Found!");
 		}
 		
 		return allFeedbacks;
@@ -38,7 +39,14 @@ public class FeedbackServiceImpl implements FeedbackService{
 	@Override
 	public Set<Feedback> viewProgramFeedback(int programId) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		Set<Feedback> feedbacks = feedbackRepository.getFeedbacksByProgramId(programId);
+		
+		if(feedbacks.isEmpty()) {
+			throw new NullValueFoundException("No feedback found for the given Program ID");
+		}
+		
+		return feedbacks;
 	}
 
 }

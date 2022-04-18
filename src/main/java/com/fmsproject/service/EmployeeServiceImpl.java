@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.fmsproject.dao.EmployeeRepository;
 import com.fmsproject.entity.Employee;
+import com.fmsproject.exception.NullValueFoundException;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -29,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<Employee> allEmployee = employeeRepository.findAll();
 
 		if (allEmployee.isEmpty()) {
-			System.out.println("No Employee found!!");
+			throw new NullValueFoundException("No Employee found!!");
 		}
 
 		return allEmployee;
